@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Clima — Escena Viva{% endblock %}
+
+{% block content %}
+
+    <h2>Clima del fin de semana en {{ ciudad }}</h2>
+
+    <ul class="clima-lista">
+        {% for dia in pronostico %}
+            <li class="card clima-card">
+                <strong>{{ dia.dia }}</strong> · {{ dia.temperatura }}° · {{ dia.condicion }}
+            </li>
+        {% empty %}
+            <li class="vacio">No hay datos de clima disponibles.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

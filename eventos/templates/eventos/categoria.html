@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ categoria.nombre }} — Escena Viva{% endblock %}
+
+{% block content %}
+
+    <h2>{{ categoria.nombre }}</h2>
+
+    <div class="grid-eventos">
+        {% for evento in eventos %}
+            {% include "eventos/_evento_card.html" %}
+        {% empty %}
+            <p class="vacio">No hay eventos publicados en esta categoría todavía.</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

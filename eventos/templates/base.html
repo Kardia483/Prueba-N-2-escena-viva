@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Escena Viva{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'eventos/estilos.css' %}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-top">
+            <div class="marca">
+                <span class="logo">🎭</span>
+                <div>
+                    <h1>Escena Viva</h1>
+                    <p>Cartelera cultural de Santiago</p>
+                </div>
+            </div>
+
+            <div class="sesion">
+                {% if user.is_authenticated %}
+                    <span>Hola, {{ user.username }}</span>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-outline">Salir</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-outline">Iniciar sesión</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <nav class="tabs">
+            <a class="tab {% if request.resolver_match.url_name == 'evento_list' %}activa{% endif %}"
+               href="{% url 'evento_list' %}">Inicio</a>
+            {% for cat in categorias_nav %}
+                <a class="tab {% if request.resolver_match.url_name == 'categoria_detail' and request.resolver_match.kwargs.pk == cat.pk %}activa{% endif %}"
+                   href="{% url 'categoria_detail' cat.pk %}">{{ cat.nombre }}</a>
+            {% endfor %}
+            <a class="tab {% if request.resolver_match.url_name == 'clima' %}activa{% endif %}"
+               href="{% url 'clima' %}">Clima</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'evento_create' %}" class="btn-solid tab-btn">+ Nuevo evento</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>Escena Viva — Proyecto académico INACAP · Programación Back End</p>
+    </footer>
+
+</body>
+</html>

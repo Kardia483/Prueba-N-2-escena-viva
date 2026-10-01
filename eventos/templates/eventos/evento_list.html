@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Próximos eventos — Escena Viva{% endblock %}
+
+{% block content %}
+
+    <h2>Próximos eventos</h2>
+
+    <div class="grid-eventos">
+        {% for evento in eventos %}
+            {% include "eventos/_evento_card.html" %}
+        {% empty %}
+            <p class="vacio">Todavía no hay eventos publicados.</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

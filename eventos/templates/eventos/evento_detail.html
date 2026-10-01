@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ evento.titulo }} — Escena Viva{% endblock %}
+
+{% block content %}
+
+    <article class="card">
+        {% if evento.imagen %}
+            <img class="detalle-img" src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
+        {% else %}
+            <div class="detalle-img placeholder">🎭</div>
+        {% endif %}
+
+        <span class="categoria-tag">{{ evento.categoria.nombre }}</span>
+        <h2>{{ evento.titulo }}</h2>
+        <p>{{ evento.fecha|date:"l d/m/Y · H:i" }} hrs</p>
+        <p>{{ evento.lugar }}</p>
+        <p class="precio">
+            {% if evento.precio > 0 %}${{ evento.precio }}{% else %}Entrada gratuita{% endif %}
+        </p>
+        {% if evento.descripcion %}<p>{{ evento.descripcion }}</p>{% endif %}
+        {% if evento.destacado %}<span class="badge">Destacado</span>{% endif %}
+
+        {% if user.is_authenticated %}
+            <div class="acciones">
+                <a href="{% url 'evento_update' evento.pk %}" class="btn-outline">Editar</a>
+                <a href="{% url 'evento_delete' evento.pk %}" class="btn-outline">Borrar</a>
+            </div>
+        {% endif %}
+
+        <p><a href="{% url 'evento_list' %}">← Volver a la cartelera</a></p>
+    </article>
+
+{% endblock %}

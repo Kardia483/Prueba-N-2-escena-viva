@@ -1,0 +1,23 @@
+{% load static %}
+<article class="card evento-card">
+    <div class="evento-img-wrap">
+        {% if evento.imagen %}
+            <img class="evento-img" src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
+        {% else %}
+            <div class="evento-img placeholder">🎭</div>
+        {% endif %}
+        <div class="date-badge">
+            <span class="dia">{{ evento.fecha|date:"D" }}</span>
+            <span class="num">{{ evento.fecha|date:"d" }}</span>
+        </div>
+    </div>
+    <div class="evento-info">
+        <span class="categoria-tag">{{ evento.categoria.nombre }}</span>
+        <h3><a href="{% url 'evento_detail' evento.pk %}">{{ evento.titulo }}</a></h3>
+        <p class="lugar">{{ evento.lugar }}</p>
+        <p class="precio">
+            {% if evento.precio > 0 %}${{ evento.precio }}{% else %}Gratis{% endif %}
+        </p>
+        {% if evento.destacado %}<span class="badge">Destacado</span>{% endif %}
+    </div>
+</article>

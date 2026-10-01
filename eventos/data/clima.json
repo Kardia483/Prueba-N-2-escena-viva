@@ -1,0 +1,7 @@
+{
+  "ciudad": "Santiago",
+  "pronostico": [
+    {"dia": "Sábado", "temperatura": 24, "condicion": "Soleado"},
+    {"dia": "Domingo", "temperatura": 19, "condicion": "Nublado"}
+  ]
+}

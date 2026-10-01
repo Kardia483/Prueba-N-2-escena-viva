@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión — Escena Viva{% endblock %}
+
+{% block content %}
+
+    <section class="card auth">
+        <h2>Iniciar sesión</h2>
+
+        {% if form.errors %}
+            <p class="errores">Usuario o contraseña incorrectos. Inténtalo de nuevo.</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="btn-solid">Entrar</button>
+        </form>
+    </section>
+
+{% endblock %}
